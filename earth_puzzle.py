@@ -43,7 +43,7 @@ for each in combos_letters:
         ans = ""
         num = ""
     
-    if tot <= max(solutions):
+    if tot <= solutions[-1]:
         sol.append(tot)
         # list_dicts.append(earth_dict)
     
