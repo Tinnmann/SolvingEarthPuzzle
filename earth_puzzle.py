@@ -4,60 +4,51 @@
 import time
 from itertools import permutations
 
-start = time.perf_counter()
+
+start_time = time.perf_counter()
 letters = ["A", "E", "H", "N", "O", "R", "S", "T", "U", "W"]
 
 directions = ["NORTH", "EAST", "SOUTH", "WEST"]
 
-solutions = []
-sol=[]
-list_dicts = []
-ans = ""
-num = ""
-tot=0
+solutions_earth, solutions_letters, direction, num, tot = [], [], "", "", 0
+
+perms_earth, perms_letters = permutations(range(10),5), permutations(range(10), 10)
 
 
-combos_earth = permutations(range(10),5)
-combos_letters = permutations(range(10), 10)
+for each in perms_earth:
+    a = [str(i) for i in each]
+    number = "".join(a)
+    solutions_earth.append(int(number))
 
-for each in combos_earth:
-    a = list(each)
-    b = [str(i) for i in a]
-    number = "".join(b)
-    solutions.append(int(number))
-
-for each in combos_letters:
+for each in perms_letters:
     j = [str(x) for x in each]
     
     earth_dict = dict(zip(letters, j))
     
     #north + east + south + west = tot
     for i in range(len(directions)):
-        for char in directions[i]:
-            ans += char
-        for char in ans:
+        for j in directions[i]:
+            direction += j
+        for char in direction:
             num += earth_dict[char]
      
         tot += int(num)
-        
-        ans = ""
-        num = ""
-    
-    if tot <= solutions[-1]:
-        sol.append(tot)
-        # list_dicts.append(earth_dict)
-    
-    tot=0
-    
+        direction, num = "", ""
 
-
-   
-same = set(solutions) & set(sol)
+    if tot <= solutions_earth[-1]:
+        solutions_letters.append(tot)
+    
+    tot=0   
+ 
+same = set(solutions_earth) & set(solutions_letters)
 if same:
+    size = len(same)
+    print(f"The number of possible solutions is {size}:")
     print(same)
-end = time.perf_counter()
+    
+end_time = time.perf_counter()
 
-elapsed = end - start
+elapsed_time = end_time - start_time
 
-print(f'Time taken: {elapsed:.6f} seconds')
+print(f"Total time taken: {elapsed_time:.3f} seconds")
         
