@@ -41,6 +41,7 @@ for each in perms_letters:
     tot=0   
  
 same = set(solutions_earth) & set(solutions_letters)
+
 if same:
     size = len(same)
     print(f"The number of possible solutions is {size}:")
